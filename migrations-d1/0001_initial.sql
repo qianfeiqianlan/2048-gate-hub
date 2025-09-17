@@ -1,4 +1,4 @@
--- 创建用户表
+-- Create user table
 CREATE TABLE IF NOT EXISTS user (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE NOT NULL,
@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS user (
     updatedAt INTEGER NOT NULL
 );
 
--- 创建分数表
+-- Create score table
 CREATE TABLE IF NOT EXISTS score (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     userId INTEGER NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS score (
     FOREIGN KEY (userId) REFERENCES user (id)
 );
 
--- 创建索引以提高查询性能
+-- Create indexes to improve query performance
 CREATE INDEX IF NOT EXISTS idx_user_username ON user (username);
 
 CREATE INDEX IF NOT EXISTS idx_score_userId ON score (userId);

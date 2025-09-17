@@ -1,10 +1,11 @@
-import { D1Database } from "@cloudflare/workers-types";
+import { D1Database, KVNamespace } from "@cloudflare/workers-types";
 
 export * from "./user";
 export * from "./score";
 
 export interface Env {
   DB: D1Database;
+  KV: KVNamespace;
   JWT_SECRET?: string;
   SALT?: string;
 }

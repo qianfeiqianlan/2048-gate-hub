@@ -21,7 +21,7 @@ scoreRouter.get("/", async (c) => {
       return errorResponse(c, "User not authenticated", 401);
     }
 
-    const scoreService = new ScoreService(c.env.DB);
+    const scoreService = new ScoreService(c.env.DB, c.env.KV);
     const result = await scoreService.getUserScores(user.id);
 
     return successResponse(c, result, "User scores retrieved successfully");
@@ -41,7 +41,7 @@ scoreRouter.post("/", validateBody(uploadScoreRequestSchema), async (c) => {
 
     const scoreData = c.get("validatedBody");
     const country = c.req.header("CF-IPCountry");
-    const scoreService = new ScoreService(c.env.DB);
+    const scoreService = new ScoreService(c.env.DB, c.env.KV);
     const result = await scoreService.uploadScore(user.id, scoreData, country);
 
     return successResponse(c, result, "Score uploaded successfully", 201);
@@ -67,7 +67,7 @@ scoreRouter.post(
 
       const { scores } = c.get("validatedBody");
       const country = c.req.header("CF-IPCountry");
-      const scoreService = new ScoreService(c.env.DB);
+      const scoreService = new ScoreService(c.env.DB, c.env.KV);
       const result = await scoreService.uploadMultipleScores(
         user.id,
         scores,
@@ -95,7 +95,7 @@ scoreRouter.post(
 
 scoreRouter.get("/leaderboard", async (c) => {
   try {
-    const scoreService = new ScoreService(c.env.DB);
+    const scoreService = new ScoreService(c.env.DB, c.env.KV);
     const result = await scoreService.getTopScores();
 
     return successResponse(c, result, "Leaderboard retrieved successfully");
